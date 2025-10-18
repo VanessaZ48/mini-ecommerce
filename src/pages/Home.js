@@ -1,21 +1,24 @@
-import React from "react";
+import React from "react"; // Importa React para poder usar JSX
 
+// Componente principal de la página de inicio
 export default function Home() {
   return (
+    // Estilos
     <div
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        height: "50vh",
-        backgroundColor: "#e6e9ef", // gris claro
-        textAlign: "center",
-        color: "#003366",
-        borderBottom: "4px solid #007bff",
-        boxShadow: "inset 0 2px 10px rgba(0,0,0,0.1)",
+        display: "flex", // Usa flexbox para centrar el contenido
+        justifyContent: "center", // Centra horizontalmente
+        alignItems: "center", // Centra verticalmente
+        flexDirection: "column", // Ordena los elementos en columna
+        height: "50vh", // Ocupa la mitad de la altura de la pantalla
+        backgroundColor: "#e6e9ef", // Fondo gris claro
+        textAlign: "center", // Centra el texto
+        color: "#003366", // Azul oscuro para el texto
+        borderBottom: "4px solid #007bff", // Línea azul decorativa inferior
+        boxShadow: "inset 0 2px 10px rgba(0,0,0,0.1)", // Sombra interior suave
       }}
     >
+      {/* Título principal de bienvenida */}
       <h1
         style={{
           fontSize: "36px",
@@ -25,6 +28,8 @@ export default function Home() {
       >
         ¡Bienvenido a Ferrero Machines!
       </h1>
+
+      {/* Texto descriptivo de la empresa */}
       <p
         style={{
           fontSize: "18px",

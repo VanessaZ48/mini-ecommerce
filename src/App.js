@@ -1,27 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+import React, { useState, useEffect } from "react"; // Hooks de React: manejo de estado y efectos secundarios
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"; // Enrutamiento para navegar entre páginas
+
+// Importación de componentes de las páginas
 import Home from "./pages/Home";
+import Nosotros from "./pages/Nosotros";
 import Productos from "./pages/Productos";
 import Contacto from "./pages/Contacto";
 import Carrito from "./pages/Carrito";
 
-  function App() {
-  // ✅ Estado inicial con persistencia directa
-    const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
+// COMPONENTE PRINCIPAL
+function App() {
+  //  ESTADOS 
+  // Estado del carrito de compras (se guarda en localStorage para persistencia)
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem("cart"); // Recupera carrito guardado
+    return saved ? JSON.parse(saved) : []; // Si existe, lo convierte a objeto; si no, crea arreglo vacío
   });
 
+  // Estado para mostrar/ocultar el panel flotante del carrito
   const [showCart, setShowCart] = useState(false);
 
-  // ✅ Guardar carrito cada vez que cambia
+  // EFECTO DE SINCRONIZACIÓN
+  // Cada vez que cambia el carrito, se guarda en localStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // Calcular cantidad total en el carrito
+  // CALCULO DEL TOTAL DE PRODUCTOS
+  // Suma la cantidad de unidades de todos los productos en el carrito
   const cartCount = cart.reduce((total, item) => total + (item.quantity || 0), 0);
 
+  // INTERFAZ DE LA APLICACIÓN
   return (
     <Router>
       <div
@@ -42,6 +52,7 @@ import Carrito from "./pages/Carrito";
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
           }}
         >
+          {/* Logo */}
           <img
             src="/logo192.png"
             alt="Logo Ferrero Machines"
@@ -72,8 +83,12 @@ import Carrito from "./pages/Carrito";
             borderBottom: "4px solid #007bff",
           }}
         >
+          {/* Enlaces de navegación */}
           <Link to="/" style={linkStyle}>
             Inicio
+          </Link>
+          <Link to="/Nosotros" style={linkStyle}>
+            Nosotros
           </Link>
           <Link to="/Productos" style={linkStyle}>
             Productos
@@ -83,9 +98,9 @@ import Carrito from "./pages/Carrito";
           </Link>
         </nav>
 
-        {/* RUTAS */}
+        {/* DEFINICIÓN DE RUTAS */}
         <Routes>
-          {/* Página principal con Home + Productos */}
+          {/* Página principal: muestra Home y Productos */}
           <Route
             path="/"
             element={
@@ -97,16 +112,20 @@ import Carrito from "./pages/Carrito";
               </>
             }
           />
+          {/* Página “Nosotros” */}
+          <Route path="/Nosotros" element={<Nosotros />} />
+          {/* Página de productos independiente */}
           <Route
             path="/Productos"
             element={<Productos cart={cart} setCart={setCart} />}
           />
+          {/* Página de contacto */}
           <Route path="/Contacto" element={<Contacto />} />
         </Routes>
 
         {/* BOTÓN FLOTANTE DEL CARRITO */}
         <button
-          onClick={() => setShowCart(!showCart)}
+          onClick={() => setShowCart(!showCart)} // Alterna la visibilidad del carrito
           style={{
             position: "fixed",
             bottom: "25px",
@@ -123,10 +142,12 @@ import Carrito from "./pages/Carrito";
             zIndex: 999,
             transition: "all 0.3s ease",
           }}
+          // Cambia el color del botón al pasar el mouse
           onMouseEnter={(e) => (e.target.style.backgroundColor = "#0056b3")}
           onMouseLeave={(e) => (e.target.style.backgroundColor = "#007bff")}
         >
           🛒
+          {/* Muestra cantidad total de productos si hay algo en el carrito */}
           {cartCount > 0 && (
             <span
               style={{
@@ -146,7 +167,7 @@ import Carrito from "./pages/Carrito";
           )}
         </button>
 
-        {/* PANEL FLOTANTE DEL CARRITO */}
+        {/* FLOTANTE DEL CARRITO */}
         {showCart && (
           <div
             style={{
@@ -163,7 +184,7 @@ import Carrito from "./pages/Carrito";
               animation: "fadeIn 0.3s ease",
             }}
           >
-            <Carrito cart={cart} setCart={setCart} />
+            <Carrito cart={cart} setCart={setCart} /> {/* Componente del carrito */}
           </div>
         )}
       </div>
@@ -171,12 +192,14 @@ import Carrito from "./pages/Carrito";
   );
 }
 
+// ESTILO REUTILIZABLE PARA LOS ENLACES
 const linkStyle = {
   color: "white",
   textDecoration: "none",
   fontSize: "16px",
   fontWeight: "600",
-  transition: "0.3s",
+  transition: "0.3s", // Transición suave al pasar el cursor
 };
 
+// Exporta el componente principal
 export default App;

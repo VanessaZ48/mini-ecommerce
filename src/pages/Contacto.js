@@ -1,25 +1,27 @@
+// Componente de formulario de contacto con React
 import React, { useState } from "react";
 
 export default function Contacto() {
+  // Estado del formulario
   const [formData, setFormData] = useState({
     nombre: "",
     correo: "",
     mensaje: "",
   });
 
+  // Maneja los cambios en los campos del formulario
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Envía el formulario y muestra un mensaje de confirmación
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Gracias ${formData.nombre}, tu mensaje ha sido enviado con éxito.`);
-    setFormData({ nombre: "", correo: "", mensaje: "" });
+    setFormData({ nombre: "", correo: "", mensaje: "" }); // Limpia los campos
   };
 
+  // Estructura y estilos del formulario
   return (
     <div
       style={{
@@ -35,21 +37,13 @@ export default function Contacto() {
         style={{
           backgroundColor: "white",
           borderRadius: "15px",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
           padding: "40px",
           maxWidth: "500px",
           width: "100%",
         }}
       >
-        <h2
-          style={{
-            textAlign: "center",
-            color: "#003366",
-            marginBottom: "25px",
-          }}
-        >
-          📩 Contáctanos
-        </h2>
+        <h2 style={{ textAlign: "center", color: "#003366" }}>Contáctanos</h2>
 
         <form onSubmit={handleSubmit}>
           <label style={labelStyle}>Nombre:</label>
@@ -90,13 +84,12 @@ export default function Contacto() {
   );
 }
 
-// 🔹 Estilos reutilizables
+// Estilos reutilizables
 const labelStyle = {
   display: "block",
   fontWeight: "bold",
   color: "#003366",
-  marginBottom: "6px",
-  marginTop: "12px",
+  margin: "12px 0 6px 0",
 };
 
 const inputStyle = {
@@ -105,7 +98,6 @@ const inputStyle = {
   border: "1px solid #ccc",
   borderRadius: "8px",
   fontSize: "15px",
-  outline: "none",
 };
 
 const buttonStyle = {
@@ -118,5 +110,4 @@ const buttonStyle = {
   width: "100%",
   marginTop: "20px",
   cursor: "pointer",
-  transition: "background-color 0.3s ease",
 };

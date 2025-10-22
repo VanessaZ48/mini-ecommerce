@@ -33,7 +33,7 @@ export default function Productos({ cart, setCart }) {
     },
   ];
 
-  // unción que agrega un producto al carrito
+  // Función que agrega un producto al carrito
   // Si el producto ya existe, incrementa su cantidad
   const addToCart = (product) => {
     // Busca si el producto ya está en el carrito

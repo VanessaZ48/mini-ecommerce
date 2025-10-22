@@ -29,6 +29,13 @@ export default function Carrito({ cart, setCart }) {
     localStorage.removeItem("cart"); // Borramos los datos guardados
   };
 
+  // Función para restar 1 a la cantidad de todos los productos del carrito
+  function restarATodos(amount) {
+                  setCart(prev =>
+                    prev.map(p => ({ ...p, quantity: Math.max(0, (p.quantity || 0) - amount) }))
+                  );
+                }
+                
   // Retorno del componente (interfaz visual del carrito)
   return (
     <div style={{ padding: 12, width: 350 }}>
@@ -105,6 +112,34 @@ export default function Carrito({ cart, setCart }) {
               }}
             >
               Pagar
+            </button>
+            <button
+              onClick={() => {
+                setCart([]); // Vaciamos el carrito
+              }}
+              style={{
+                width: "100%",
+                background: "#dc3545",
+                color: "white",
+                border: "none",
+                padding: "10px",
+                borderRadius: 6,
+                cursor: "pointer",
+              }}
+            >
+              Vaciar carrito
+            </button>
+            <button
+              onClick={() => {
+                restarATodos(1); // Resta 1 a la cantidad de todos los productos
+              }}
+              style={{
+                width: "100%",
+                background: "#007bff",
+                color: "white",         
+              }}
+            >
+              Borrar un producto 
             </button>
           </div>
         </>
